@@ -36,12 +36,11 @@ jobs:
       - name: run training and model validation
         run: |
          az ml job create -s -f src/workshop/core/pipelines/training_pipeline.yml
-
-      - name:  Create Pull Request to Main
-        uses: thomaseizinger/create-pull-request@master
+    
+      - name: Run the Action
+        uses: devops-infra/action-pull-request@v0.5.2
         with:
-          GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN_GITHUB }} #setup: provide your github secret name
-          head: ${{ github.ref }}
-          base: main
+          github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN_GITHUB }}
+          target_branch: main
           title: "An automatically created PR to main by successful CI"
 
